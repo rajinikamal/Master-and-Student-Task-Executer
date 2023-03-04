@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <title>View Assignment</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+  
+    h2 {
+      text-align: center;
+    }
+  
+    .row {
+      display: flex;
+      justify-content: center;
+    }
+  
+    .column {
+      width: 50%;
+      padding: 10px;
+      margin-left: 10px;
+    }
+  
+    .column1 {
+      width: 50%;
+      padding: 10px;
+      margin-top: 10px;
+    }
+  
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    label {
+      margin-top: 10px;
+    }
+  
+    input[type="text"] {
+      margin-bottom: 10px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      width: 100%;
+      max-width: 300px;
+      box-shadow: none;
+    }
+  
+    button[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      width: 100%;
+      max-width: 300px;
+    }
+  
+    button[type="submit"]:hover {
+      background-color: #3e8e41;
+    }
+    
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th, td {
+      text-align: left;
+      padding: 8px;
+    }
+    
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    tr:hover {
+      background-color: #ddd;
+    }
+  </style>
+  
+</head>
+<body>
+    <div class="navbar navbar-default">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Student Page</a>
+          <a href="index.html" style="position: absolute; top: 10px; right: 20px;">Logout</a>
+        </div>
+        <div class="navbar-collapse collapse"  >
+            <ul class="nav navbar-nav navbar-right">
+                 <li><a href="#" id="logout" style="display: none;">Log Out</a></li>
+            </ul>
+        </div>
+        </div>
+  <h2>Assignments</h2>
+
+  <div class="row">
+    <div class="column">
+      <h2>Stored Questions</h2>
+      <table id="questionTable">
+        <thead>
+          <tr>
+            <th>Question</th>
+            <th>Answer</th>
+          </tr>
+        </thead>
+        <tbody id="questionTableBody">
+        </tbody>
+      </table>
+    </div>
+    <div class="column1">
+      <h2>Calculator</h2>
+    <form>
+      <label for="input">Enter Calculation:</label>
+      <input type="text" name="input" id="input">
+      <label for="result">Result</label>
+      <input type="text" name="result" id="result">
+      <button type="submit">Calculate</button><br>
+    </form>
+  </div>
+  </div>
+  <script>
+    function plus(a, b) {
+  return function(x, y) {
+    return Math.round(x + y);
+  };
+}
+
+function minus(a, b) {
+  return function(x, y) {
+    return Math.round(x - y);
+  };
+}
+
+function times(a, b) {
+  return function(x, y) {
+    return Math.round(x * y);
+  };
+}
+
+function dividedBy(a, b) {
+  return function(x, y) {
+    if (y === 0) {
+      return "Error: division by zero";
+    }
+    return Math.round(x / y);
+  };
+}
+
+function zero(op, val) {
+  if (op === undefined) {
+    return 0;
+  } else {
+    return op(0, val);
+  }
+}
+
+function one(op, val) {
+  if (op === undefined) {
+    return 1;
+  } else {
+    return op(1, val);
+  }
+}
+
+function two(op, val) {
+  if (op === undefined) {
+    return 2;
+  } else {
+    return op(2, val);
+  }
+}
+
+function three(op, val) {
+  if (op === undefined) {
+    return 3;
+  } else {
+    return op(3, val);
+  }
+}
+
+function four(op, val) {
+  if (op === undefined) {
+    return 4;
+  } else {
+    return op(4, val);
+  }
+}
+
+function five(op, val) {
+  if (op === undefined) {
+    return 5;
+  } else {
+    return op(5, val);
+  }
+}
+
+function six(op, val) {
+  if (op === undefined) {
+    return 6;
+  } else {
+    return op(6, val);
+  }
+}
+
+function seven(op, val) {
+  if (op === undefined) {
+    return 7;
+  } else {
+    return op(7, val);
+  }
+}
+
+function eight(op, val) {
+  if (op === undefined) {
+    return 8;
+  } else {
+    return op(8, val);
+  }
+}
+
+function nine(op, val) {
+  if (op === undefined) {
+    return 9;
+  } else {
+    return op(9, val);
+  }
+}
+
+function calculate() {
+  const input = document.getElementById("input").value;
+  const result = eval(input.replace(/([0-9]+)(\.[0-9]+)/g, "$1")); // replace all float numbers with their integer values
+  document.getElementById("result").value = Math.floor(result); // set the result value in the input tag, rounded down to the nearest integer
+}
+
+
+const form = document.querySelector("form");
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  calculate();
+});
+
+const questionTableBody = document.getElementById('questionTableBody');
+
+      
+      
+      
+      // Loop through localStorage items and add them to the table
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const value = localStorage.getItem(key);
+        
+        if (key.startsWith('question_')) {
+          const row = document.createElement('tr');
+          
+          const questionCell = document.createElement('td');
+          questionCell.textContent = value;
+          row.appendChild(questionCell);
+          
+        const answerCell = document.createElement('td');
+          row.appendChild(answerCell);
+          
+          
+    
+          const uploadButton = document.createElement('input');
+          uploadButton.type = 'file';
+          uploadButton.id = 'upload_' + key;
+          answerCell.appendChild(uploadButton);
+          
+          
+       
+          
+          
+         
+          
+          questionTableBody.appendChild(row);
+        }
+      }
+      
+      // Add click event listener to button
+      addAnswerButton.addEventListener('click', function() {
+        const answer = answerInput.value;
+        const key = 'question_' + Date.now();
+        
+        localStorage.setItem(key, answer);
+        
+        const row = document.createElement('tr');
+        const questionCell = document.createElement('td');
+        questionCell.textContent = answer;
+        row.appendChild(questionCell);
+        
+        const answerCell = document.createElement('td');
+        row.appendChild(answerCell);
+        
+        
+    
+        const uploadButton = document.createElement('input');
+        uploadButton.type = 'file';
+        uploadButton.id = 'upload_' + key;
+        answerCell.appendChild(uploadButton);
+        
+        
+       
+       
+        
+        questionTableBody.appendChild(row);
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Write Assignment</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<style>
+		* {
+		  box-sizing: border-box;
+		  font-family: Arial, sans-serif;
+		}
+		
+		h2 {
+		  text-align: center;
+		  margin-top: 50px;
+		}
+		
+		form {
+		  margin: auto;
+		  width: 50%;
+		  padding: 20px;
+		  border: 1px solid #ccc;
+		  border-radius: 5px;
+		}
+		
+		label {
+		  display: inline-block;
+		  margin-bottom: 5px;
+		}
+		
+		textarea {
+		  width: 100%;
+		  padding: 10px;
+		  margin-bottom: 10px;
+		  border-radius: 5px;
+		  border: 1px solid #ccc;
+		  resize: vertical;
+		}
+		
+		button[type="submit"] {
+		  background-color: #4CAF50;
+		  color: white;
+		  padding: 10px 20px;
+		  border: none;
+		  border-radius: 5px;
+		  cursor: pointer;
+		}
+		
+		button[type="submit"]:hover {
+		  background-color: #45a049;
+		}
+		
+		table {
+		  margin: auto;
+		  width: 50%;
+		  border-collapse: collapse;
+		  border: 1px solid #ddd;
+		  margin-top: 50px;
+		}
+		
+		th, td {
+		  text-align: left;
+		  padding: 8px;
+		}
+		
+		th {
+		  background-color: #4CAF50;
+		  color: white;
+		}
+		
+		tr:nth-child(even) {
+		  background-color: #f2f2f2;
+		}
+		
+		tr:hover {
+		  background-color: #ddd;
+		}
+	  </style>
+</head>
+<body>
+  <div class="navbar navbar-default">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Master Page</a>
+      <a href="master.html" style="position: absolute; top: 10px; right: 20px;">Logout</a>
+    </div>
+    <div class="navbar-collapse collapse"  >
+        <ul class="nav navbar-nav navbar-right">
+             <li><a href="#" id="logout" style="display: none;">Log Out</a></li>
+        </ul>
+    </div>
+    </div>
+	<h2>Ask Your Question</h2>
+	<form id="contactForm">
+		<div>
+			<label for="question">Write Your Questions:</label><br>
+			<textarea id="question" name="myTextarea" rows="5" cols="50"></textarea>
+		</div>
+		<br>
+		<button type="submit">Submit</button>
+	</form>
+
+	<h2>Stored Questions</h2>
+	<table id="questionTable">
+		<thead>
+			<tr>
+				<th>Question</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+
+	<script>
+		const form = document.getElementById('contactForm');
+  const textarea = document.getElementById('question');
+  const table = document.getElementById('questionTable').querySelector('tbody');
+  
+  // Load saved questions from local storage
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith('question_')) {
+      const question = localStorage.getItem(key);
+      addQuestionToTable(question);
+    }
+  }
+  
+  // Handle form submission
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    // Save question to local storage
+    const question = textarea.value;
+    const key = 'question_' + Date.now(); // Generate a unique key based on the current timestamp
+    localStorage.setItem(key, question);
+    
+    // Add question to table
+    addQuestionToTable(question);
+    
+    // Reset form
+    form.reset();
+  });
+  
+  function addQuestionToTable(question) {
+    const row = table.insertRow();
+    const cell = row.insertCell();
+    cell.textContent = question;
+  }
+</script>
+
+</body>
+</html>
